@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mete", "mete\mete.csproj", "{DCF56D62-95FC-408C-82CE-3E8168ADDB6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.vsix.irc", "me.vsix.irc\me.vsix.irc.csproj", "{3D0972F2-9810-4350-BEAC-41BDEC01347B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.vsix.net", "me.vsix.net\me.vsix.net.csproj", "{39AE0BE1-EC65-4498-A6CA-46B638A21176}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCF56D62-95FC-408C-82CE-3E8168ADDB6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF56D62-95FC-408C-82CE-3E8168ADDB6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF56D62-95FC-408C-82CE-3E8168ADDB6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF56D62-95FC-408C-82CE-3E8168ADDB6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0972F2-9810-4350-BEAC-41BDEC01347B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0972F2-9810-4350-BEAC-41BDEC01347B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0972F2-9810-4350-BEAC-41BDEC01347B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0972F2-9810-4350-BEAC-41BDEC01347B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39AE0BE1-EC65-4498-A6CA-46B638A21176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39AE0BE1-EC65-4498-A6CA-46B638A21176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39AE0BE1-EC65-4498-A6CA-46B638A21176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39AE0BE1-EC65-4498-A6CA-46B638A21176}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
