@@ -1,0 +1,7 @@
+C:\eclipse\workspace\trunk\mete\me.vsix.irc\bin\Debug\me.vsix.irc.dll
+C:\eclipse\workspace\trunk\mete\me.vsix.irc\bin\Debug\me.vsix.irc.pdb
+C:\eclipse\workspace\trunk\mete\me.vsix.irc\bin\Debug\me.vsix.net.dll
+C:\eclipse\workspace\trunk\mete\me.vsix.irc\bin\Debug\me.vsix.net.pdb
+C:\eclipse\workspace\trunk\mete\me.vsix.irc\obj\Debug\ResolveAssemblyReference.cache
+C:\eclipse\workspace\trunk\mete\me.vsix.irc\obj\Debug\me.vsix.irc.dll
+C:\eclipse\workspace\trunk\mete\me.vsix.irc\obj\Debug\me.vsix.irc.pdb

@@ -1,0 +1,5 @@
+C:\eclipse\workspace\trunk\mete\me.vsix.net\bin\Debug\me.vsix.net.dll
+C:\eclipse\workspace\trunk\mete\me.vsix.net\bin\Debug\me.vsix.net.pdb
+C:\eclipse\workspace\trunk\mete\me.vsix.net\obj\Debug\ResolveAssemblyReference.cache
+C:\eclipse\workspace\trunk\mete\me.vsix.net\obj\Debug\me.vsix.net.dll
+C:\eclipse\workspace\trunk\mete\me.vsix.net\obj\Debug\me.vsix.net.pdb

@@ -32,12 +32,8 @@ public enum ModuleImplements
 
         //event myDelegate ActionRequired;
         string pGetTriggerRegexp(int whichType);
-        bool pEntryPoint(string sender, string inputStr);
+        bool pEntryPoint(ModuleImplements eventType,string sender, string hostmask, string dest, string data);
         pReply pGetPendingSends();
         ModuleImplements pGetModuleJobs();
-        bool pModeCheck(string sender, string inputStr);
-        bool pKickCheck(string sender, string inputStr);
-        bool pJoinCheck(string sender, string hostmask, string dest, string data);
-
     }
 }
