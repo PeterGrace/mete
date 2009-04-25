@@ -198,6 +198,10 @@ namespace me.vsix.irc
         {
             string[] args=new string[3];
 
+            if (pluginList == null)
+                return;
+
+
             foreach (AvailablePlugin plugin in pluginList)
             {
                 if (plugin.naughty == false)
@@ -205,25 +209,20 @@ namespace me.vsix.irc
                     if ((plugin.implements & ModuleImplements.Join) == ModuleImplements.Join)
                     {
                         IRCPlugin p = plugin.instance;
-                        p.pJoinCheck(sender, hostmask, dest, data);
+                        p.pEntryPoint(ModuleImplements.Join, sender, hostmask,dest,data);
                     }
                 }
             }
         }
         private void pPRIVMSG(string sender, string hostmask, string dest, string data)
         {
-            string replyto;
-
-            if (dest.Substring(0, 1) == "#")
-                replyto = dest;
-            else
-                replyto = sender;
+       
 
             if (data.Split(' ')[0].ToUpper() == ".SYSTEM")
             {
                 if (matchOwner(sender + "!" + hostmask))
                 {
-                    goSystemCommands(replyto, data);
+                    goSystemCommands(sender, data);
                     return;
                 }
             }
@@ -249,7 +248,7 @@ namespace me.vsix.irc
                             {
                                 try
                                 {
-                                    p.pEntryPoint(replyto, data);
+                                    p.pEntryPoint(ModuleImplements.Chat, sender, hostmask,dest,data);
                                 }
                                 catch (Exception ex)
                                 {
@@ -269,6 +268,7 @@ namespace me.vsix.irc
 
         private void goSystemCommands(string replyto, string data)
         {
+
             string[] args = data.Split(' ');
             switch (args[1])
             {

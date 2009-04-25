@@ -1,0 +1,9 @@
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.OpMe.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.OpMe.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.irc.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.net.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.irc.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.net.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\obj\Debug\ResolveAssemblyReference.cache
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\obj\Debug\me.vsix.OpMe.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\obj\Debug\me.vsix.OpMe.pdb

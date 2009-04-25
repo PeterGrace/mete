@@ -1,0 +1,22 @@
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\Jointester.exe
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\Jointester.pdb
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\JoinConsumer.dll
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\me.vsix.irc.dll
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\me.vsix.net.dll
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\me.vsix.irc.pdb
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\me.vsix.net.pdb
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\bin\Debug\JoinConsumer.pdb
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\obj\Debug\Jointester.exe
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\Jointester\obj\Debug\Jointester.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\Jointester.exe
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\Jointester.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\me.vsix.irc.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\me.vsix.OpMe.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\me.vsix.net.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\me.vsix.irc.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\me.vsix.net.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\bin\Debug\me.vsix.OpMe.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\obj\Debug\ResolveAssemblyReference.cache
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\obj\Debug\Jointester.exe
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\Jointester\obj\Debug\Jointester.pdb

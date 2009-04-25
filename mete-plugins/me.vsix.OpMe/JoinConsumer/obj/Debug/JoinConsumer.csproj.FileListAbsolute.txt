@@ -1,0 +1,18 @@
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\bin\Debug\JoinConsumer.dll
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\bin\Debug\JoinConsumer.pdb
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\bin\Debug\me.vsix.irc.dll
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\bin\Debug\me.vsix.net.dll
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\bin\Debug\me.vsix.irc.pdb
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\bin\Debug\me.vsix.net.pdb
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\obj\Debug\JoinConsumer.dll
+C:\Users\pgrace\Documents\Visual Studio 2008\Projects\JoinConsumer\JoinConsumer\obj\Debug\JoinConsumer.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\obj\Debug\ResolveAssemblyReference.cache
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\obj\Debug\JoinConsumer.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\obj\Debug\JoinConsumer.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\JoinConsumer.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\JoinConsumer.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.irc.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.net.dll
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.irc.pdb
+C:\eclipse\workspace\trunk\mete-plugins\me.vsix.OpMe\JoinConsumer\bin\Debug\me.vsix.net.pdb
