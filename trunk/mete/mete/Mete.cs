@@ -11,7 +11,8 @@ namespace me.vsix
     {
         static void Main(string[] args)
         {
-            IRCBot irc = new IRCBot("irc.ipv6.he.net", 6667, null);
+            //IRCBot irc = new IRCBot("irc.ipv6.he.net", 6667, null);
+            IRCBot irc = new IRCBot("C:\\kmb\\kmb.ini");
             while (true)
             {
                 System.Threading.Thread.Sleep(10);

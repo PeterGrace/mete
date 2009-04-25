@@ -14,32 +14,75 @@ namespace me.vsix.irc
     [Serializable]
     public class IRCBot
     {
+        Dictionary<string, string> cfg;
         AvailablePlugin[] pluginList;
         GNet cn;
-        string serverPass;
-        const string nickname = "kmb-";
         System.Timers.Timer pluginCheck;
 
-        public IRCBot(string server, int port, string pass)
+        public IRCBot(string filename)
         {
-            serverPass = pass;
-            cn = new GNet(server, port);
-            cn.GenericCommEvent += new GNet.raiseEvent(EventMarshal);
-            cn.Connect();
+            cfg = new Dictionary<string, string>();
+            if (!readConfig(filename))
+                throw new Exception("Couldn't read config.");
+
             pluginCheck = new System.Timers.Timer(100);
             pluginCheck.Elapsed += new System.Timers.ElapsedEventHandler(pluginCheck_Elapsed);
-            //reloadPlugins();
+            reloadPlugins();
+
+            cn = new GNet(cfg["server"], Convert.ToUInt16(cfg["port"]));
+            cn.GenericCommEvent += new GNet.raiseEvent(EventMarshal);
+            cn.Connect();
         }
 
+        public bool readConfig(string filename)
+        {
+            string line;
+            try
+            {
+                TextReader fd = new StreamReader(filename);
+                while ((line = fd.ReadLine()) != null)                
+                {
+                    if (line.Length > 0)
+                    {
+                        if (line.Substring(0, 1) != "#")
+                        {
+                            string[] keyval = line.Split("=".ToCharArray(), 2);
+                            cfg[keyval[0]] = keyval[1];
+                        }
+                    }
+                }
+                
+                if (cfg.ContainsKey("server") == false)
+                    return false;
+                if (cfg.ContainsKey("port") == false)
+                    return false;
+                if (cfg.ContainsKey("nick") == false)
+                    return false;
+                if (cfg.ContainsKey("user") == false)
+                    return false;
+
+                return true;
+            
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reading config file!");
+                return false;
+            }
+
+
+
+        }
 
         public void Start()
         {
-            reloadPlugins();
-            if (!(serverPass == null))
-                sendToServer("PASS " + serverPass);
+            //reloadPlugins();
+            if (cfg.ContainsKey("serverpass"))
+                sendToServer("PASS " + cfg["serverpass"]);
 
-            sendToServer("NICK " + nickname);
-            sendToServer("USER " + nickname + " 8 * :" + nickname);
+
+            sendToServer("NICK " + cfg["nick"]);
+            sendToServer("USER " + cfg["user"] + " 8 * :" + cfg["fullname"]);
 
         }
 
@@ -111,7 +154,7 @@ namespace me.vsix.irc
                 case "376":
                     {
                         // motd is over
-                        joinChannel("#kmb");
+                        joinChannel(cfg["defchan"]);
                         break;
                     }
             }
@@ -166,7 +209,6 @@ namespace me.vsix.irc
                     }
                 }
             }
-            //sendPrivMessage("#kmb", sender + "(" + hostmask + ")" + "Joined " + dest + ": " + data);
         }
         private void pPRIVMSG(string sender, string hostmask, string dest, string data)
         {
@@ -179,8 +221,11 @@ namespace me.vsix.irc
 
             if (data.Split(' ')[0].ToUpper() == ".SYSTEM")
             {
-                goSystemCommands(replyto, data);
-                return;
+                if (matchOwner(sender + "!" + hostmask))
+                {
+                    goSystemCommands(replyto, data);
+                    return;
+                }
             }
             // don't need to do anything if no plugins are activated.
             if (pluginList == null)
@@ -296,14 +341,14 @@ namespace me.vsix.irc
         private void sendPrivMessage(string dest, string message)
         {
             string tmp;
-            tmp = ":" + nickname + " PRIVMSG " + dest + " :" + message;
+            tmp = ":" + cfg["nick"] + " PRIVMSG " + dest + " :" + message;
             sendToServer(tmp);
         }
 
         private void sendModeChange(string[] args)
         {
             string tmp;
-            tmp = ":" + nickname + " MODE " + args[0] + " :" + args[1];
+            tmp = ":" + cfg["nick"] + " MODE " + args[0] + " " + args[1];
             sendToServer(tmp);
         }
 
@@ -483,9 +528,6 @@ namespace me.vsix.irc
 
         private AppDomain createInstance(AvailablePlugin plugin)
         {
-            Assembly objDLL;
-            object objPlugin;
-
             try
             {
 
@@ -540,7 +582,43 @@ namespace me.vsix.irc
                 if (pluginList[i].ClassName == classname)
                     pluginList[i].naughty = true;
 
-            sendPrivMessage("#kmb", "plugin " + classname +" was naughty.  Saving myself by ignoring module.  Exception: " + ex.Message);
+            sendPrivMessage(cfg["defchan"], "plugin " + classname +" was naughty.  Saving myself by ignoring module.  Exception: " + ex.Message);
+        }
+
+        public bool matchOwner(string checkMask)
+        {
+            Regex r;
+            Match m;
+            string[] list = cfg["ownermask"].Split(",".ToCharArray());
+            r = new Regex("^([^!@]+)!([^@]+)@(.*)$");
+
+            Match checkMatch = r.Match(checkMask);
+
+            foreach (string mask in list)
+            {
+                m = r.Match(mask);
+                if (m.Success)
+                {
+                    //Console.WriteLine("{0},{1},{2}", m.Groups[1].ToString(), m.Groups[2].ToString(), m.Groups[3].ToString());
+
+
+                    Regex hostReg = new Regex(m.Groups[3].ToString());
+                    Match hostMatch = hostReg.Match(checkMatch.Groups[3].ToString());
+                    if (hostMatch.Success)
+                    {
+                        Regex identReg = new Regex(m.Groups[1].ToString());
+                        Match identMatch = identReg.Match(checkMatch.Groups[2].ToString());
+                        if (identMatch.Success)
+                        {
+                            Regex nickReg = new Regex(m.Groups[1].ToString());
+                            Match nickMatch = nickReg.Match(checkMatch.Groups[1].ToString());
+                            if (nickMatch.Success)
+                                return true;
+                        }                        
+                    }
+                }
+            }
+            return false;
         }
 
         void pluginCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
