@@ -1,0 +1,18 @@
+#summary Main page
+
+= Welcome! =
+
+Mete is an IRC bot written in C# that is designed to be extended by plugins for any functionality you require.
+
+= Why "Mete?" =
+
+Mete (v) - to give out by measure.
+
+In this case, the bot is giving out IRC resources uniformly across all plugins that request it.
+
+Plus, as someone pointed out, it rhymes with Pete, though that is purely coincidental ;)
+
+
+= Want to join? =
+
+If you are interested in the project, please feel free to join the Developer List.  There you can chat with me about how to get the bot working, pointers on plugin development, etc.
