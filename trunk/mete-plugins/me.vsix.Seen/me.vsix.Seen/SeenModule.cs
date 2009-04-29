@@ -20,12 +20,12 @@ namespace me.vsix.Seen
 
         public bool pEntryPoint(ModuleImplements whatType, string sender, string hostmask, string dest, string data)
         {
-            string[] tmp = new string[2];
+            string[] tmp = new string[2];            
             string replyto;
             if (dest.Substring(0, 1) == "#")
                 replyto = dest;
             else
-                replyto = sender;
+                replyto = sender.ToUpper();
 
             pReply foo;
             string[] args = data.Split(' ');
@@ -35,12 +35,12 @@ namespace me.vsix.Seen
                     {
                         if (args.Length < 2)
                             return false;
-                        if (seenMap.ContainsKey(args[1]))
+                        if (seenMap.ContainsKey(args[1].ToUpper()))
                         {
-                            if (seenMap[args[1]].ContainsKey(dest))
+                            if (seenMap[args[1].ToUpper()].ContainsKey(dest))
                             {
-                                TimeSpan datediff = DateTime.Now.Subtract(seenMap[args[1]][dest].whenSeen);
-                                tmp[1] = args[1] + " was last seen saying: \"" + seenMap[args[1]][dest].lastMessage + "\" in channel " + dest + " " + datediff.ToString() + " ago.";
+                                TimeSpan datediff = DateTime.Now.Subtract(seenMap[args[1].ToUpper()][dest].whenSeen);
+                                tmp[1] = args[1] + " was last seen saying: \"" + seenMap[args[1].ToUpper()][dest].lastMessage + "\" in channel " + dest + " " + datediff.ToString() + " ago.";
                             }
                         }
                         else
@@ -59,12 +59,12 @@ namespace me.vsix.Seen
                         Seen whenseen;
                         whenseen.lastMessage = data;
                         whenseen.whenSeen = DateTime.Now;
-                        if (seenMap.ContainsKey(sender))
-                            seenMap[sender][dest] = whenseen;
+                        if (seenMap.ContainsKey(sender.ToUpper()))
+                            seenMap[sender.ToUpper()][dest] = whenseen;
                         else
                         {
-                            seenMap[sender] = new Dictionary<string, Seen>();
-                            seenMap[sender][dest] = whenseen;
+                            seenMap[sender.ToUpper()] = new Dictionary<string, Seen>();
+                            seenMap[sender.ToUpper()][dest] = whenseen;
                         }
                         break;
                     }

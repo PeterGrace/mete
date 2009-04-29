@@ -79,7 +79,7 @@ namespace me.vsix.OpMe
             Match m;
             string[] tmp = new string[2];
             
-            if (OpsList[dest] != null)
+            if (OpsList.ContainsKey(dest))
             {
                 ArrayList CurrentOps = OpsList[dest];
             }

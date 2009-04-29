@@ -18,9 +18,12 @@ namespace me.vsix.irc
         AvailablePlugin[] pluginList;
         GNet cn;
         System.Timers.Timer pluginCheck;
+        System.Timers.Timer pingCheck;
+        string ctrla;
 
         public IRCBot(string filename)
         {
+            ctrla = ((char)1).ToString();
             cfg = new Dictionary<string, string>();
             if (!readConfig(filename))
                 throw new Exception("Couldn't read config.");
@@ -32,7 +35,15 @@ namespace me.vsix.irc
             cn = new GNet(cfg["server"], Convert.ToUInt16(cfg["port"]));
             cn.GenericCommEvent += new GNet.raiseEvent(EventMarshal);
             cn.Connect();
+            pingCheck = new System.Timers.Timer(60000);
+            pingCheck.Elapsed += new System.Timers.ElapsedEventHandler(pingCheck_Elapsed);
+            pingCheck.Enabled = false;
         }
+
+void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+{
+ 	sendCTCP(cfg["nick"],"PING FOO BAR");
+}
 
         public bool readConfig(string filename)
         {
@@ -83,7 +94,7 @@ namespace me.vsix.irc
 
             sendToServer("NICK " + cfg["nick"]);
             sendToServer("USER " + cfg["user"] + " 8 * :" + cfg["fullname"]);
-
+            pingCheck.Enabled = true;
         }
 
         public void processRecv(string input)
@@ -208,15 +219,60 @@ namespace me.vsix.irc
                 {
                     if ((plugin.implements & ModuleImplements.Join) == ModuleImplements.Join)
                     {
-                        IRCPlugin p = plugin.instance;
-                        p.pEntryPoint(ModuleImplements.Join, sender, hostmask,dest,data);
+                        try
+                        {
+                            IRCPlugin p = plugin.instance;
+                            p.pEntryPoint(ModuleImplements.Join, sender, hostmask, dest, data);
+                        }
+                        catch (Exception ex)
+                        {
+                            makeNaughty(plugin.ClassName, ex);
+                        }
                     }
                 }
             }
         }
         private void pPRIVMSG(string sender, string hostmask, string dest, string data)
         {
-       
+
+            if (data.Split(' ')[0].StartsWith(((char)1).ToString()))
+            {
+                Regex ctcpReg = new Regex(".*?" + ctrla + "(.*?)" + ctrla);
+                Match ctcpMatch = ctcpReg.Match(data);
+
+                if (ctcpMatch.Success)
+                {
+                    string[] ctcpargs;
+                    try
+                    {
+                        ctcpargs = ctcpMatch.Groups[1].ToString().Split(' ');
+                    }
+                    catch (Exception ex)
+                    {
+                        sendNotice(sender, ctrla + "PING NODATA" + ctrla);
+                        return;
+                    }
+                    switch (ctcpargs[0])
+                    {
+                        case "PING":
+                            {
+                                if (ctcpargs.Length > 1)
+                                    sendNotice(sender, ctrla + "PING " + ctcpargs[1] + " " + ctcpargs[2] + ctrla);
+                                else
+                                    sendNotice(sender, ctrla + "PING NODATA" + ctrla);
+                                break;
+                            }
+                        case "VERSION":
+                            {
+                                sendNotice(sender, ctrla + "VERSION Mete alpha" + ctrla);
+                                break;
+                            }
+                    }
+                }
+
+                
+                return;
+            }
 
             if (data.Split(' ')[0].ToUpper() == ".SYSTEM")
             {
@@ -344,6 +400,21 @@ namespace me.vsix.irc
             tmp = ":" + cfg["nick"] + " PRIVMSG " + dest + " :" + message;
             sendToServer(tmp);
         }
+
+        private void sendNotice(string dest, string message)
+        {
+            string tmp;
+            tmp = "NOTICE " + dest + " :" + message;
+            sendToServer(tmp);
+        }
+
+        private void sendCTCP(string dest, string message)
+        {
+            string ctrla = ((char)1).ToString();
+            string msg = ctrla + message + ctrla;
+            sendPrivMessage(dest,msg);
+        }
+            
 
         private void sendModeChange(string[] args)
         {
