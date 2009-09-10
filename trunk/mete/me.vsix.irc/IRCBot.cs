@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Text;
+using System.Linq;
 using System.IO;
 using me.vsix.net;
 using System.Reflection;
@@ -62,17 +63,7 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
                         }
                     }
                 }
-                
-                if (cfg.ContainsKey("server") == false)
-                    return false;
-                if (cfg.ContainsKey("port") == false)
-                    return false;
-                if (cfg.ContainsKey("nick") == false)
-                    return false;
-                if (cfg.ContainsKey("user") == false)
-                    return false;
-
-                return true;
+		return new[]{"server","port","user","nick","fullname"}.All(cfg.ContainsKey);
             
             }
             catch (Exception ex)
@@ -100,7 +91,8 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         public void processRecv(string input)
         {
             string[] commands;
-            commands = input.Split(Environment.NewLine.ToCharArray());
+            //commands = input.Split(Environment.NewLine.ToCharArray());
+            commands = input.Split("\r\n".ToCharArray());
             foreach (string sInd in commands)
             {
                 procCmd(sInd);
@@ -119,7 +111,8 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             string serverStr, stdStr, rawStr;
             stdStr = ":([^!]+)!(\\S+)\\s+(\\S+)\\s+:?(\\S+)\\s*(?:[:+-]+(.*))?";
-            serverStr = ":(.*?)\\s(\\d{3})\\s\\w+\\s:(.*?)";
+            //serverStr = ":(.*?)\\s(\\d{3})\\s\\w+\\s:(.*?)";
+	    serverStr = ":(.*?)\\s(\\d{3})\\s(.*?)\\s:(.*?)$";
             rawStr = "(\\w+) (:.*)";
 
             Regex rStd = new Regex(stdStr);
@@ -278,6 +271,7 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
             {
                 if (matchOwner(sender + "!" + hostmask))
                 {
+			Console.WriteLine("Go Commands!" + sender + ":" + data);
                     goSystemCommands(sender, data);
                     return;
                 }
@@ -325,6 +319,8 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         private void goSystemCommands(string replyto, string data)
         {
 
+		Console.WriteLine("reply: |"+ replyto+"|");
+		Console.WriteLine("data: |"+ data+"|");
             string[] args = data.Split(' ');
             switch (args[1])
             {
@@ -487,7 +483,7 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
                 pluginList = null;
             }
 
-            pluginList = findPlugins("C:\\kmb\\plugins", "me.vsix.irc.IRCPlugin");
+            pluginList = findPlugins("/home/pgrace/bot/plugins", "me.vsix.irc.IRCPlugin");
             if (pluginList != null)
             {
                 for (int i = 0; i <= (pluginList.Length - 1); i++)
@@ -658,6 +654,7 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 
         public bool matchOwner(string checkMask)
         {
+		Console.WriteLine("CheckOwners");
             Regex r;
             Match m;
             string[] list = cfg["ownermask"].Split(",".ToCharArray());
@@ -667,24 +664,30 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
 
             foreach (string mask in list)
             {
+		Console.WriteLine("Iterating for Matches");
                 m = r.Match(mask);
                 if (m.Success)
                 {
-                    //Console.WriteLine("{0},{1},{2}", m.Groups[1].ToString(), m.Groups[2].ToString(), m.Groups[3].ToString());
+                    Console.WriteLine("{0},{1},{2}", m.Groups[1].ToString(), m.Groups[2].ToString(), m.Groups[3].ToString());
 
 
                     Regex hostReg = new Regex(m.Groups[3].ToString());
                     Match hostMatch = hostReg.Match(checkMatch.Groups[3].ToString());
                     if (hostMatch.Success)
                     {
+			Console.WriteLine("Host Matched!");
                         Regex identReg = new Regex(m.Groups[1].ToString());
                         Match identMatch = identReg.Match(checkMatch.Groups[2].ToString());
                         if (identMatch.Success)
                         {
+			Console.WriteLine("Ident Matched!");
                             Regex nickReg = new Regex(m.Groups[1].ToString());
                             Match nickMatch = nickReg.Match(checkMatch.Groups[1].ToString());
                             if (nickMatch.Success)
+				{
+					Console.WriteLine("Totally matched.");
                                 return true;
+				}
                         }                        
                     }
                 }
