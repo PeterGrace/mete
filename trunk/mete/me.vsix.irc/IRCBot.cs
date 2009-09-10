@@ -8,6 +8,7 @@ using System.Linq;
 using System.IO;
 using me.vsix.net;
 using System.Reflection;
+using System.Threading;
 
 
 namespace me.vsix.irc
@@ -215,7 +216,8 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
                         try
                         {
                             IRCPlugin p = plugin.instance;
-                            p.pEntryPoint(ModuleImplements.Join, sender, hostmask, dest, data);
+			ThreadPool.QueueUserWorkItem(
+                            (object state) => p.pEntryPoint(ModuleImplements.Join, sender, hostmask, dest, data));
                         }
                         catch (Exception ex)
                         {
@@ -289,16 +291,17 @@ void  pingCheck_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
                 {
                     if ((plugin.implements & ModuleImplements.Chat) == ModuleImplements.Chat)
                     {
-                        IRCPlugin p = plugin.instance;
+                        IRCPlugin pl = plugin.instance;
                         try
                         {
-                            r = new Regex(p.pGetTriggerRegexp(0));
+                            r = new Regex(pl.pGetTriggerRegexp(0));
                             m = r.Match(data);
                             if (m.Success)
                             {
                                 try
                                 {
-                                    p.pEntryPoint(ModuleImplements.Chat, sender, hostmask,dest,data);
+			ThreadPool.QueueUserWorkItem(
+                            (object state) => pl.pEntryPoint(ModuleImplements.Chat, sender, hostmask, dest, data));
                                 }
                                 catch (Exception ex)
                                 {
